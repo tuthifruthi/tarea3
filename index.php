@@ -19,6 +19,19 @@ body p {
 <big class="a">Bienvenido al sistema</big>
 <br>&nbsp;</br>
 
+<?php 
+
+ if(isset($_POST['login'])) <!-- si el botón de login fue presionado...-->
+    {
+      <!-- la redirección depende del tipo de usuario -->
+
+      header("location:coordgeneral.php"); 
+      header("location:coordarea.php");  
+      header("location:postulante.php");  
+    }
+?> 
+  
+
 <form method="post" action="<?php
   $consulta="SELECT * FROM alumnos"
  ?>">
@@ -28,7 +41,7 @@ body p {
     <input type="text" name="password">
   </p>
   <p>
-    <input type="submit" value="Ingresar">
+    <input name="login" type="submit" value="Ingresar">
   </p>
 </form>
 <p>Si quieres ser colaborador...

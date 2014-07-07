@@ -13,6 +13,14 @@ body p {
 <big class="a">POSTULACION</big>
 <br>&nbsp;</br>
 
+<?php 
+
+ if(isset($_POST['postulacion'])) <!-- si el botón de editar fue presionado...-->
+    {
+      echo 'Postulacion exitosa!.'; 
+      header("location:index.php");  
+    }
+?> 
 
 <form method="post"> 
   <p>Nombre:
@@ -49,7 +57,7 @@ body p {
   <br>
 &nbsp;  </p>
   <p>
-    <input type="submit" value="Postular">
+    <input name="postulacion" type="submit" value="Postular">
   </p>
 </form>
 
