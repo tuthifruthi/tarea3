@@ -17,7 +17,7 @@ class Conexion_bd {
 
     //constructor
 
-    function _construct($host='localhost', $bd='BD', $user='postgres', $pass='root'){
+    function _construct($host='localhost', $bd='postgres', $user='postgres', $pass='root'){
 
         $this->host=$host;
         $this->bd=$bd;
