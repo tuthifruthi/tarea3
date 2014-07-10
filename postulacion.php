@@ -31,6 +31,7 @@ body p {
     RUT: <input type="text" name="rut">
 <br><br>
     Carrera: <input type="text" name="carrera">
+<form method="post" action="valid_postulacion.php">
 <br><br>
     Correo electronico: 
     <input type="text" name="email">

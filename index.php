@@ -16,7 +16,7 @@ body p {
 
 <body>
 <title>Bienvenido</title>
-<big class="a">Bienvenido al sistema</big>
+<big class="a">Bienvenido al JIM</big>
 <br>&nbsp;</br>
 
 <?php 
@@ -32,9 +32,7 @@ body p {
 ?> 
   
 
-<form method="post" action="<?php
-  $consulta="SELECT * FROM alumnos"
- ?>">
+<form method="post" action="validar.php">
   <p>ROL USM:
     <input type="text" name="rol"><br> <!-- debe consultar por el rol, ya que es clave primaria -->
     Contrasena: 
