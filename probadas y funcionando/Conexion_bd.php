@@ -17,30 +17,24 @@ class Conexion_bd {
 
     //constructor
 
-    function _construct($host='localhost', $bd='postgres', $user='postgres', $pass='root'){
-
-        $this->host=$host;
-        $this->bd=$bd;
-        $this->usuario=$user;
-        $this->pass=$pass;
+    function __construct(){
+    	$this->host="localhost";
+    	$this->bd="postgres";
+    	$this->user="postgres"; 
+    	$this->pass="mariaj";
     }
 
     function consulta($sql){
-        $datos_bd= "host='$this->host' dbname='$this->bd' user= '$this->usuario' password='$this->pass'";
+        $datos_bd= "host='".$this->host."' dbname='".$this->bd."' user= '".$this->user."' password='".$this->pass."'";
+        //echo $sql."<br>";
         $link=pg_connect($datos_bd);
         $this->link= $link;
         $query = pg_query($link,$sql);
-
-        if(!$query){
-
-            echo $sql;
-        }
-
         return $query;
     }
 
     function _destruct(){
-
         pg_close($this->link);
     }
 }
+?>

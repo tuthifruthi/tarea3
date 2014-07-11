@@ -40,19 +40,42 @@ body p {
 <br><br>
     Contrasena: 
     <input type="text" name="password">
+    <?php 
+    include("Conexion_bd.php");
+    $dbconn= new Conexion_bd();
+    $sql = "SELECT \"nombre\" FROM \"Areas\"";
+    $result = $dbconn->consulta($sql);
+    $retorno=array();
+    while ($row = pg_fetch_row($result)) {
+    	array_push($retorno,$row[0]);
+    }
+    
+    ?>
 <br><br>
     Preferencia 1:
-    <select>
-      <option value="pref1" name="pref1">Area</option>
+    <select name="pref1">
+    <?php
+    foreach ($retorno as &$valor) {
+		echo "<option>".$valor."</option>";
+    }
+    ?>
     </select><br>
     Preferencia 2:
-    <select>
-      <option value="pref2" name="pref2" >Area</option>
+    <select name="pref2">
+      <?php
+      foreach ($retorno as &$valor) {
+      	echo "<option>".$valor."</option>";
+      }
+    ?>
     </select>
   <br>
     Preferencia 3:
-    <select>
-      <option value="pref3" name="pref3" >Area</option>
+    <select name="pref3">
+      <?php
+      foreach ($retorno as &$valor) {
+      	echo "<option>".$valor."</option>";
+      }
+    ?>
     </select>
   <br>
 &nbsp;  </p>

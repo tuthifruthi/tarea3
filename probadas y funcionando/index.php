@@ -4,8 +4,7 @@
   include("Conexion_bd.php");
   $conn= new Conexion_bd();
 
- ?>
-
+?>
 body p {
 	font-family: Verdana, Geneva, sans-serif;
 }
@@ -19,7 +18,6 @@ body p {
 <big class="a">Bienvenido al JIM</big>
 <br>&nbsp;</br>
 
-
 <?php 
 
  if(isset($_POST['login'])) 
@@ -30,14 +28,13 @@ body p {
       header("location:postulante.php");  
     }
 ?> 
-
   
 
 <form method="post" action="validar.php">
   <p>ROL USM:
     <input type="text" name="rol"><br> <!-- debe consultar por el rol, ya que es clave primaria -->
     Contrasena: 
-    <input type="password" name="password">
+    <input type="text" name="password">
   </p>
   <p>
     <input name="login" type="submit" value="Ingresar">
