@@ -11,13 +11,13 @@
 	if ($rol!="" && $pass!="") {
 		# code...
 		$sql='SELECT * FROM "alumnos" where "rol"=\''.$rol.'\'';
-		$consult=conn->consulta($sql);
+		$consult=$conn->consulta($sql);
 		$row = pg_fetch_array($consult);
 		if ($row["contrasena"]==$pass) {
 			$_SESSION["rol"] = $row["rol"];
 			$sql3 = 'SELECT "id_coordinador" FROM "coordinadores" WHERE "rol"=\''.$row["rol"].'\'';
 			echo hola;
-			$consult2= conn->consulta($sql3);
+			$consult2= $conn->consulta($sql3);
 			if ($row2 = pg_fetch_array($consult2)) {
 				#es coordinador, yay.
 
@@ -27,7 +27,7 @@
 			else if{
 
 			$sql4 = 'SELECT "id_colaborador" FROM "colaboradores" WHERE "rol"=\''.$row["rol"].'\'';
-			$consult3= conn->consulta($sql4);
+			$consult3= $conn->consulta($sql4);
 
 				if ($row3 = pg_fetch_array($consult3)) {
 					#es colaborador, yay.
