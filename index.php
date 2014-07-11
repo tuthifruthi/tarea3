@@ -21,9 +21,8 @@ body p {
 
 <?php 
 
- if(isset($_POST['login'])) <!-- si el botón de login fue presionado...-->
+ if(isset($_POST['login'])) 
     {
-      <!-- la redirección depende del tipo de usuario -->
 
       header("location:coordgeneral.php"); 
       header("location:coordarea.php");  

@@ -15,7 +15,7 @@ body p {
 
 <?php 
 
- if(isset($_POST['add'])) <!-- si el botón de agregar fue presionado...-->
+ if(isset($_POST['add'])) 
     {
       echo 'El area se agrego exitosamente!.'; 
       header("location:areas.php");  
