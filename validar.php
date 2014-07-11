@@ -1,7 +1,7 @@
 <?php
 
 
-	include("Conexion_bd.php");
+	include'Conexion_bd.php';
   	$conn= new Conexion_bd();
 	$rol = $_POST['rol'];
 	$pass = $_POST['password'];
@@ -16,9 +16,10 @@
 		if ($row["contrasena"]==$pass) {
 			$_SESSION["rol"] = $row["rol"];
 			$sql3 = 'SELECT "id_coordinador" FROM "coordinadores" WHERE "rol"=\''.$row["rol"].'\'';
+			echo hola;
 			$consult2= conn->consulta($sql3);
 			if ($row2 = pg_fetch_array($consult2)) {
-				//es coordinador, yay.
+				#es coordinador, yay.
 
 				header("Location:menu_coordin.php");
 			}
@@ -29,14 +30,14 @@
 			$consult3= conn->consulta($sql4);
 
 				if ($row3 = pg_fetch_array($consult3)) {
-					//es colaborador, yay.
+					#es colaborador, yay.
 
 					header("Location:menu_colab.php");
 				}
 
 				else{
 
-					//es postulante
+					#es postulante
 					header("Location:menu_postu.php");
 				}
 
@@ -55,9 +56,6 @@
 
 		echo "ingrese todos los datos";
 	}
-
-	
-
 
 
 	 ?>
