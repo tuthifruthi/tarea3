@@ -1,7 +1,6 @@
-<!DOCTYPE html> 
 <html> 
 <head>
-    <title>Menu Coordinador</title> 
+    <title>Menu Coordinador Area</title> 
 </head> 
 <body> 
         <?php
@@ -15,10 +14,15 @@
         pg_free_result($result);
         dbconn->_destruct();
         ?>
-        <a href = "misdatos.php"><input type="submit" value="Ver mis datos"></a>
+        <br>&nbsp;</br>
+        <a href = "profile.php"><input type="submit" value="Mis datos"></a>
+        <br>&nbsp;</br>
         <a href = "noticias.php"><input type="submit" value="Noticias"></a>
+        <br>&nbsp;</br>
         <a href = "postulantes.php"><input type="submit" value="Postulantes"></a> 
-        <a href = "colselec.php"><input type="submit" value="Colaboradores Seleccionados"></a> 
-        <a href = "logout.php"><input type="submit" value="Salir"></a> 
+        <br>&nbsp;</br>
+        <a href = "seleccionados.php"><input type="submit" value="Colaboradores Seleccionados"></a> 
+        <br>&nbsp;</br>
+        <a href = "logout.php"><input type="submit" value="Cerrar sesion"></a> 
 </body>  
 </html>

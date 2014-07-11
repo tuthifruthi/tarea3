@@ -19,6 +19,18 @@ body p {
 <big class="a">Bienvenido al JIM</big>
 <br>&nbsp;</br>
 
+
+<?php 
+
+ if(isset($_POST['login'])) 
+    {
+
+      header("location:coordgeneral.php"); 
+      header("location:coordarea.php");  
+      header("location:postulante.php");  
+    }
+?> 
+
   
 
 <form method="post" action="validar.php">

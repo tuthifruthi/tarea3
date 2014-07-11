@@ -11,6 +11,25 @@ SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: holi(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION holi() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$DECLARE prevcol INTEGER;
+    BEGIN
+        SELECT  "cant_seleccionados" FROM "Areas" WHERE "id_area"=NEW."id_area" INTO prevcol;
+        IF NEW."seleccionado" = TRUE THEN
+            UPDATE "Areas" SET "cant_seleccionados"=prevcol+1 WHERE "id_area"=NEW."id_area";
+        END IF; 
+        RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.holi() OWNER TO postgres;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -295,9 +314,9 @@ ALTER SEQUENCE "Perfiles_usuario_id_perfil_seq" OWNED BY "Perfiles_usuario".id_p
 --
 
 CREATE TABLE "Postulantes" (
-    "id_postulante " integer NOT NULL,
     id_coordinador integer,
-    rol text
+    rol text,
+    id_postulante integer NOT NULL
 );
 
 
@@ -318,10 +337,10 @@ CREATE TABLE "Postulantes_area" (
 ALTER TABLE public."Postulantes_area" OWNER TO postgres;
 
 --
--- Name: Pòstulantes_id_postulante _seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: Postulantes_id_postulante_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE "Pòstulantes_id_postulante _seq"
+CREATE SEQUENCE "Postulantes_id_postulante_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -329,27 +348,14 @@ CREATE SEQUENCE "Pòstulantes_id_postulante _seq"
     CACHE 1;
 
 
-ALTER TABLE public."Pòstulantes_id_postulante _seq" OWNER TO postgres;
+ALTER TABLE public."Postulantes_id_postulante_seq" OWNER TO postgres;
 
 --
--- Name: Pòstulantes_id_postulante _seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: Postulantes_id_postulante_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE "Pòstulantes_id_postulante _seq" OWNED BY "Postulantes"."id_postulante ";
+ALTER SEQUENCE "Postulantes_id_postulante_seq" OWNED BY "Postulantes".id_postulante;
 
-
---
--- Name: Pòstulantes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE "Pòstulantes" (
-    "id_postulante " integer DEFAULT nextval('"Pòstulantes_id_postulante _seq"'::regclass) NOT NULL,
-    id_coordinador integer,
-    rol text
-);
-
-
-ALTER TABLE public."Pòstulantes" OWNER TO postgres;
 
 --
 -- Name: view_seleccionados; Type: VIEW; Schema: public; Owner: postgres
@@ -514,10 +520,10 @@ ALTER TABLE ONLY "Noticias" ALTER COLUMN id_noticia SET DEFAULT nextval('"Notici
 
 
 --
--- Name: id_postulante ; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id_postulante; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Postulantes" ALTER COLUMN "id_postulante " SET DEFAULT nextval('"Pòstulantes_id_postulante _seq"'::regclass);
+ALTER TABLE ONLY "Postulantes" ALTER COLUMN id_postulante SET DEFAULT nextval('"Postulantes_id_postulante_seq"'::regclass);
 
 
 --
@@ -541,13 +547,13 @@ SELECT pg_catalog.setval('"Alumnos_id_campus_seq"', 3, true);
 --
 
 COPY "Areas" (id_area, nombre, fecha, horario, cant_seleccionados) FROM stdin;
-1	juanito	\N	\N	\N
-2	holi	\N	\N	\N
-3	holi2	\N	\N	\N
-4	holi3	\N	\N	\N
-5	holi4	\N	\N	\N
-6	holi5	\N	\N	\N
-7	holi6	\N	\N	\N
+2	holi	\N	\N	0
+4	holi3	\N	\N	0
+6	holi5	\N	\N	0
+7	holi6	\N	\N	0
+5	holi4	\N	\N	0
+3	holi2	\N	\N	0
+1	juanito	\N	\N	0
 \.
 
 
@@ -653,7 +659,8 @@ SELECT pg_catalog.setval('"Perfiles_usuario_id_perfil_seq"', 1, false);
 -- Data for Name: Postulantes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Postulantes" ("id_postulante ", id_coordinador, rol) FROM stdin;
+COPY "Postulantes" (id_coordinador, rol, id_postulante) FROM stdin;
+1	2010735842	1
 \.
 
 
@@ -666,18 +673,10 @@ COPY "Postulantes_area" (id_area, id_postulante, preferencia, seleccionado) FROM
 
 
 --
--- Data for Name: Pòstulantes; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Name: Postulantes_id_postulante_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-COPY "Pòstulantes" ("id_postulante ", id_coordinador, rol) FROM stdin;
-\.
-
-
---
--- Name: Pòstulantes_id_postulante _seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('"Pòstulantes_id_postulante _seq"', 1, false);
+SELECT pg_catalog.setval('"Postulantes_id_postulante_seq"', 1, true);
 
 
 --
@@ -745,19 +744,26 @@ ALTER TABLE ONLY "Postulantes_area"
 
 
 --
--- Name: Pòstulantes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY "Pòstulantes"
-    ADD CONSTRAINT "Pòstulantes_pkey" PRIMARY KEY ("id_postulante ");
-
-
---
 -- Name: colaboradores_area_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY "Colaboradores_area"
     ADD CONSTRAINT colaboradores_area_pkey PRIMARY KEY (id_colaborador, id_area);
+
+
+--
+-- Name: id_postulante; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "Postulantes"
+    ADD CONSTRAINT id_postulante PRIMARY KEY (id_postulante);
+
+
+--
+-- Name: trigger_num_seleccionados; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trigger_num_seleccionados AFTER UPDATE ON "Postulantes_area" FOR EACH ROW EXECUTE PROCEDURE holi();
 
 
 --
@@ -796,7 +802,7 @@ ALTER TABLE ONLY "Noticias"
 -- Name: id_coordinador; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Pòstulantes"
+ALTER TABLE ONLY "Postulantes"
     ADD CONSTRAINT id_coordinador FOREIGN KEY (id_coordinador) REFERENCES "Coordinadores"(id_coordinador);
 
 
@@ -813,14 +819,6 @@ ALTER TABLE ONLY "Colaboradores"
 --
 
 ALTER TABLE ONLY "Colaboradores"
-    ADD CONSTRAINT rol FOREIGN KEY (rol) REFERENCES "Alumnos"(rol);
-
-
---
--- Name: rol; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "Pòstulantes"
     ADD CONSTRAINT rol FOREIGN KEY (rol) REFERENCES "Alumnos"(rol);
 
 

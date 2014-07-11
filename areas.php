@@ -15,17 +15,17 @@ body p {
 
 <?php 
 
- if(isset($_POST['add'])) <!-- si el botón de agregar fue presionado...-->
+ if(isset($_POST['add'])) 
     {
       header("location:addarea.php");  
     }
 
- if(isset($_POST['edit'])) <!-- si el botón de editar fue presionado...-->
+ if(isset($_POST['edit'])) 
     {
       header("location:editarea.php");  
     }
 
- if(isset($_POST['eliminar'])) <!-- si el botón de eliminar fue presionado...-->
+ if(isset($_POST['eliminar'])) 
     { 
  
     }

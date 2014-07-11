@@ -15,7 +15,7 @@ body p {
 
 <?php 
 
- if(isset($_POST['postulacion'])) <!-- si el botón de editar fue presionado...-->
+ if(isset($_POST['postulacion'])) 
     {
       echo 'Postulacion exitosa!.'; 
       header("location:index.php");  

@@ -15,7 +15,7 @@ body p {
 
 <?php 
 
- if(isset($_POST['edit'])) <!-- si el botón de editar fue presionado...-->
+ if(isset($_POST['edit'])) 
     {
       echo 'Edicion exitosa!.'; 
       header("location:areas.php");  
