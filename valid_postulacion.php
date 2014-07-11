@@ -17,11 +17,25 @@
 
 		$sql= 'INSERT into "alumnos" VALUES (\''.$rol.'\',\''.$rut.'\',\''.$nombre.'\',\''.$carr.'\',\''.$correo.'\',\''.$tele.'\',\''.$pass.'\',\'\')';
 		$conn->consulta($sql);
+
+		$sql5= 'INSERT into "postulantes" Values(0,\''.$rol.'\',\'\')';
+		$conn->consulta($sql5);
+
 		$sql2='SELECT "id_postulante" FROM "postulantes" where "rol"=\''.$rol.'\'';
 		$result= $conn->consulta($sql2);
-	$sql2='INSERT into "postulantes_area" Values(\''.$result.'\',\''.$result.'\')'
 
-//inconsistencia con los datos
+		$sql3='SELECT "id_area" FROM "areas" where "nombre"=\''.$pre1.'\''; // sacar id area por nombre area
+		$result2=$conn->consulta($sql3);
+
+		$sql2='INSERT into "postulantes_area" Values(\''.$result2.'\',\''.$result.'\', 1, FALSE)';// añadir id area a postulantes area
+		$conn->consulta($sql2);
+
+		$sql4='SELECT "id_coordinador" FROM "coordinadores" where "id_area"=\''.$result2.'\''; // sacar id cordinador por id_area de tabla coordinadores
+		$result3=$conn->consulta($sql4);
+
+		$sql6='UPDATE "postulantes" SET "id_coordinador"= '$result3' where "id_postulante"=\''.$result.'\''; // añadir id_coordinador a tabla postulantes
+		
+		
 	}
 
 	else{
